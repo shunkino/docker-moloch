@@ -14,6 +14,7 @@ echo
 # intialize elasticsearch
 echo INIT | /data/moloch/db/db.pl http://elasticsearch:9200 init
 /data/moloch/bin/moloch_add_user.sh admin "Admin User" THEPASSWORD --admin
+/data/moloch/bin/moloch_update_geo.sh
 
 if [ -z $1 ]; then
 	echo "Not starting capture, start capturing with giving 'capture' parameter"
