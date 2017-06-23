@@ -2,6 +2,13 @@
 
 MOLOCHDIR=/data/moloch
 
+# set PATH
+export PATH=$PATH:/data/moloch/bin
+
+# set write permissions for moloch
+chmod a+rwx /data/moloch/raw /data/moloch/logs /data/moloch/data
+
+# wait for Elasticsearch
 echo "Giving ES time to start..."
 sleep 5
 until curl -sS 'http://elasticsearch:9200/_cluster/health?wait_for_status=yellow&timeout=5s'
@@ -11,11 +18,12 @@ do
 done
 echo
 
-# intialize elasticsearch
+# intialize moloch
 echo INIT | /data/moloch/db/db.pl http://elasticsearch:9200 init
 /data/moloch/bin/moloch_add_user.sh admin "Admin User" THEPASSWORD --admin
 /data/moloch/bin/moloch_update_geo.sh
 
+# capture
 if [ -z $1 ]; then
 	echo "Not starting capture, start capturing with giving 'capture' parameter"
   #start with amqp reader

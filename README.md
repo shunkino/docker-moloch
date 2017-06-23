@@ -14,8 +14,13 @@ docker run -d --name es elasticsearch:5.2.2-alpine
 
 Then start moloch
 ```
-docker run --link es:elasticsearch danielguerra/moloch [capture]
+docker run --name moloch -p 8005:8005 --link es:elasticsearch danielguerra/moloch [capture]
 ```
+
+Open your browser and open
+
+http://<dockerhost ip>:8005/
+
 
 ## Examples
 
@@ -29,5 +34,5 @@ Run viewer and import pcap to analyze:
 
 ```
 docker run -d --name moloch --link es:elasticsearch -v /path/to/host/pcap:/data/pcap:rw danielguerra/moloch
-docker exec containerid /data/moloch/bin/moloch-capture -r /data/pcap/sniff.pcap -t mysniff
+docker exec moloch /data/moloch/bin/moloch-capture -r /data/pcap/sniff.pcap -t mysniff
 ```
