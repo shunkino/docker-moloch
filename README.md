@@ -1,17 +1,20 @@
-# k0st/moloch
+# danielguerra/moloch
 
-Docker Moloch container
+Docker Moloch 18.2 container
 
-Image is based on the [debian](https://registry.hub.docker.com/u/debian/) base image
-
-## Docker image size
-
-[![Latest](https://badge.imagelayers.io/k0st/moloch.svg)](https://imagelayers.io/?images=k0st/moloch:latest 'latest')
+Image is based on the [ubuntu](https://hub.docker.com/r/library/ubuntu/) 16.04 image
 
 ## Docker image usage
 
+First start elasticsearch 5.2.2
+
 ```
-docker run k0st/moloch [capture]
+docker run -d --name es elasticsearch:5.2.2-alpine
+```
+
+Then start moloch
+```
+docker run --link es:elasticsearch danielguerra/moloch [capture]
 ```
 
 ## Examples
@@ -19,12 +22,12 @@ docker run k0st/moloch [capture]
 Run capture on docker container eth0 interface:
 
 ```
-docker run k0st/moloch capture
+docker run --link es:elasticsearch danielguerra/moloch capture
 ```
 
 Run viewer and import pcap to analyze:
 
 ```
-docker run -v /path/to/host/pcap:/data/pcap:rw k0st/moloch
+docker run -d --name moloch --link es:elasticsearch -v /path/to/host/pcap:/data/pcap:rw danielguerra/moloch
 docker exec containerid /data/moloch/bin/moloch-capture -r /data/pcap/sniff.pcap -t mysniff
 ```
