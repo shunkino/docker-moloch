@@ -3,7 +3,9 @@
 MOLOCHDIR=/data/moloch
 
 # set PATH
-export PATH=$PATH:/data/moloch/bin
+echo "PATH=\"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/data/moloch/bin\"" > /etc/environment
+
+source /etc/profile
 
 # set write permissions for moloch
 chmod a+rwx /data/moloch/raw /data/moloch/logs /data/moloch/data

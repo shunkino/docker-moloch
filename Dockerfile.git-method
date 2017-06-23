@@ -22,21 +22,18 @@ RUN apt-get install -yq  wget curl git sudo libyaml-dev xz-utils gcc pkg-config 
 # add scripts
 ADD /scripts /data
 RUN chmod 755 /data/*.sh
-
+# Solve ubuntu nodejs problem
+#RUN ln -s /usr/bin/nodejs /usr/bin/node
 # Start building Moloch
-RUN /data/buildmoloch.sh /data/moloch-git  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-# symlink nodejs for moloch viewer npm
+RUN /data/buildmoloch.sh /data/moloch-git
+# symlink nodejs
 RUN ln -s /usr/bin/nodejs /data/moloch/bin/node
-# Add moloch bin path
-RUN ln -s /data/moloch/bin/moloch-capture /usr/bin/moloch-capture
-RUN ln -s /data/moloch/bin/moloch-capture /usr/bin/capture
-# Add moloch config
-ADD /etc /data/moloch/etc
-# Set volumes
-VOLUME ["/data/moloch/logs","/data/moloch/data","/data/moloch/raw","/data/pcap"]
-# Set expose port for moloch viewer
-EXPOSE 8005
 
+ADD /etc /data/moloch/etc
+
+VOLUME ["/data/moloch/logs","/data/moloch/data","/data/moloch/raw","/data/pcap"]
+
+EXPOSE 8005
 WORKDIR /data/moloch
 
 ENTRYPOINT ["/data/startmoloch.sh"]
