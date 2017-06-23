@@ -41,4 +41,5 @@ echo " - docker exec moloch /data/moloch/bin/moloch-capture -r /data/pcap/sniff.
 echo
 echo "PLEASE ignore error about mising log file. It's standard moloch start script"
 echo "Starting viewer. Go with https to port 8005 of container."
-node /data/moloch/viewer/viewer.js
+cd /data/moloch/viewer
+node viewer.js
