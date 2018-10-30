@@ -8,9 +8,10 @@ MAINTAINER Daniel Guerra
 # Install curl
 RUN apt-get -qq update
 # Install the packages
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install software-properties-common
 RUN apt-get install -yq curl
 # Set the right npm repository for nodejs
-RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 # Update the repo
 RUN apt-get -qq update && apt-get -qq upgrade
 # Install the packages
@@ -20,18 +21,18 @@ RUN apt-get install -yq  wget curl git sudo libyaml-dev xz-utils gcc pkg-config 
                          libpcap-dev nodejs phantomjs vim net-tools python
 
 # add scripts
-ADD /scripts /data
+COPY /scripts /data
 RUN chmod 755 /data/*.sh
 
 # Start building Moloch
 RUN /data/buildmoloch.sh /data/moloch-git  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 # symlink nodejs for moloch viewer npm
-RUN ln -s /usr/bin/nodejs /data/moloch/bin/node
+# RUN ln -s /usr/bin/nodejs /data/moloch/bin/node
 # Add moloch bin path
 RUN ln -s /data/moloch/bin/moloch-capture /usr/bin/moloch-capture
 RUN ln -s /data/moloch/bin/moloch-capture /usr/bin/capture
 # Add moloch config
-ADD /etc /data/moloch/etc
+COPY /etc /data/moloch/etc
 # Set volumes
 VOLUME ["/data/moloch/logs","/data/moloch/data","/data/moloch/raw","/data/pcap"]
 # Set expose port for moloch viewer

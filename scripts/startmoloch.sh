@@ -5,7 +5,8 @@ MOLOCHDIR=/data/moloch
 # set PATH
 echo "PATH=\"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/data/moloch/bin\"" > /etc/environment
 
-source /etc/profile
+# source /etc/profile
+source /data/moloch/etc/profile
 
 # set write permissions for moloch
 chmod a+rwx /data/moloch/raw /data/moloch/logs /data/moloch/data
@@ -21,7 +22,11 @@ done
 echo
 
 # intialize moloch
-echo INIT | /data/moloch/db/db.pl http://elasticsearch:9200 init
+if [ "${MOLO_MODE}" = "INIT" ]; then
+	echo INIT | /data/moloch/db/db.pl http://elasticsearch:9200 init
+else
+	echo "Please set MOLO_MODE environment var to init elasticsearch for moloch."
+fi
 /data/moloch/bin/moloch_add_user.sh admin "Admin User" THEPASSWORD --admin
 /data/moloch/bin/moloch_update_geo.sh
 
