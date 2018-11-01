@@ -9,7 +9,7 @@ The image is based on the [ubuntu](https://hub.docker.com/r/library/ubuntu/) 16.
 First start elasticsearch 6.4.2
 
 ```
-docker run -d --name es elasticsearch:6.4.2-alpine
+docker run -d --name es elasticsearch:6.4.2
 ```
 
 Then start moloch
