@@ -19,7 +19,7 @@ docker run --name moloch -p 8005:8005 -d --link es:elasticsearch danielguerra/mo
 
 Open your browser and open
 
-http://<dockerhost ip>:8005/
+`http://<dockerhost ip>:8005/`
 
 Use the following Username/Password
 
