@@ -1,4 +1,5 @@
-# danielguerra/moloch
+# shunkin/moloch
+## Originaly : danielguerra/moloch
 
 Docker Moloch v1.6.0 container
 
@@ -9,7 +10,12 @@ The image is based on the [ubuntu](https://hub.docker.com/r/library/ubuntu/) 16.
 First start elasticsearch 6.4.2 
 
 ```
-docker run -d --name es elasticsearch:6.4.2-alpine
+docker run -d --name es elasticsearch:6.4.2
+```
+
+Then start moloch
+```
+docker run --name moloch -p 8005:8005 -d --link es:elasticsearch danielguerra/moloch
 ```
 
 Then start moloch
@@ -19,7 +25,7 @@ docker run --name moloch -p 8005:8005 -d --link es:elasticsearch danielguerra/mo
 
 Open your browser and open
 
-http://<dockerhost ip>:8005/
+`http://<dockerhost ip>:8005/`
 
 Use the following Username/Password
 
