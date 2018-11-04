@@ -1,15 +1,15 @@
 # danielguerra/moloch
 
-Docker Moloch v0.18.2 container
+Docker Moloch v1.6.0 container
 
 The image is based on the [ubuntu](https://hub.docker.com/r/library/ubuntu/) 16.04 image
 
 ## Docker image usage
 
-First start elasticsearch 5.2.2
+First start elasticsearch 6.4.2 
 
 ```
-docker run -d --name es elasticsearch:5.2.2-alpine
+docker run -d --name es elasticsearch:6.4.2-alpine
 ```
 
 Then start moloch

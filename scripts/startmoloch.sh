@@ -1,7 +1,5 @@
 #!/bin/sh
 
-MOLOCHDIR=/data/moloch
-
 # set PATH
 echo "PATH=\"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/data/moloch/bin\"" > /etc/environment
 
@@ -29,6 +27,8 @@ else
 fi
 /data/moloch/bin/moloch_add_user.sh admin "Admin User" THEPASSWORD --admin
 /data/moloch/bin/moloch_update_geo.sh
+# /data/moloch-git/release/moloch_add_user.sh admin "Admin User" THEPASSWORD --admin
+# /data/moloch-git/release/moloch_update_geo.sh
 
 # capture
 if [ -z $1 ]; then
